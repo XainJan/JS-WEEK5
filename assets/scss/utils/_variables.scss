@@ -298,14 +298,14 @@ $cyans: (
 // fusv-enable
 
 // scss-docs-start theme-color-variables
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
+$primary:       #00807E !default;
+$secondary:     #64C3BF !default;
 $success:       $green !default;
-$info:          $cyan !default;
+$info:          #818A91 !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
+$light:         #F7F7F7 !default;
+$dark:          #FAFAFA !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -375,10 +375,21 @@ $spacer: 1rem !default;
 $spacers: (
   0: 0,
   1: $spacer * .25,
-  2: $spacer * .5,
+  2: $spacer * .5, //8
   3: $spacer,
   4: $spacer * 1.5,
   5: $spacer * 3,
+  6: $spacer * 3.75, //60
+  7: $spacer * 5.62,
+  8: $spacer * 2.5, //40
+  9: $spacer * 0.75, //12
+  10: $spacer * 7.5, //120
+  11: $spacer * 6.25, //100
+  12: $spacer * 5.9, //95
+  13 :$spacer * 1.87, //30
+  14: $spacer * 3.25, //52
+  15: $spacer * 1.25, //20
+  16: $spacer * 0.62 //10
 ) !default;
 // scss-docs-end spacer-variables-maps
 
@@ -540,7 +551,7 @@ $aspect-ratios: (
 
 // scss-docs-start font-variables
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif:       "Noto Sans", Roboto, system-ui, -apple-system, "Segoe UI",  "Helvetica Neue", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 // stylelint-enable value-keyword-case
 $font-family-base:            var(--#{$prefix}font-sans-serif) !default;
@@ -570,8 +581,9 @@ $h1-font-size:                $font-size-base * 2.5 !default;
 $h2-font-size:                $font-size-base * 2 !default;
 $h3-font-size:                $font-size-base * 1.75 !default;
 $h4-font-size:                $font-size-base * 1.5 !default;
-$h5-font-size:                $font-size-base * 1.25 !default;
+$h5-font-size:                $font-size-base * 1.25 !default;//20
 $h6-font-size:                $font-size-base !default;
+$h7-font-size:                $font-size-base * 1.5 !default; //24
 // scss-docs-end font-variables
 
 // scss-docs-start font-sizes
@@ -581,7 +593,8 @@ $font-sizes: (
   3: $h3-font-size,
   4: $h4-font-size,
   5: $h5-font-size,
-  6: $h6-font-size
+  6: $h6-font-size,
+  7: $h7-font-size
 ) !default;
 // scss-docs-end font-sizes
 
