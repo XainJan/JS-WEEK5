@@ -79,7 +79,29 @@
       </div>
       <div class="container">
         <div id="ticketArea" class="row gx-13 gb-14 gy-lg-8 gy-4">
-         
+          <div class="col-lg-4">
+            <ul class="list-unstyled m-0 h-100 d-flex flex-column shadowY-3">
+            <li class="position-relative ">
+                <div class="overflow-hidden">
+                <a  href="#">
+                    <img class="img-fluid img-hover img-transition" src="${item.imgUrl}" alt="">
+                </a>
+                </div>
+                <div style="top: -12px;" class="position-absolute py-2 px-15 fs-5 bg-secondary text-white rounded-end"></div>
+                <div class=" translate-middle-y position-absolute  bg-primary text-white  py-tag-5 px-2 "></div>
+            </li>
+            <li class="px-15 py-3 bg-white flex-grow-1 ">
+                <h2 class="fs-7 mb-15 border-2 border-bottom border-primary text-primary fw-bold linehight-4"></h2>
+                <p class="text-info m-0"></p>
+            </li>
+            <li class="d-flex justify-content-between bg-white px-15 py-3 align-items-center">
+                <p class="m-0 d-flex align-items-center text-primary">
+                <span id="totalGroup" style="margin-right: 6px;" class="material-icons-outlined fs-5 ">error</span>
+                
+                </p>
+                <p class="text-primary m-0 fs-2  d-flex align-items-center fw-bold"><span class="fs-6 fw-normal">TWD</span>$${item.price}</p>
+            </li>
+            </ul>
       </div>
     </div>
 
