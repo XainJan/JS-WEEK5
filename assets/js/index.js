@@ -81,6 +81,7 @@ addTiket.addEventListener('click',function(e){
     )
     renderData();
     ticketForm.reset();
+    regionSearch.value = '';
 })
 
 regionSearch.addEventListener('change',function(){
