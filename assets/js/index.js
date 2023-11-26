@@ -10,77 +10,128 @@ const ticketForm = document.querySelector('#ticket-form');
 const regionSearch = document.querySelector('#regionSearch');
 const ticketArea = document.querySelector('#ticketArea');
 const totalData = document.querySelector('#totalData');
+let data=[];
 axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
 .then(function(res){
-    let data = res.data.data
-    
-    function renderData(location){
-        const cacheData = data.filter(function(item){
-            if (location === item.area){
-                return item
-            }
-    
-            if(!location){
-                return item
-            }
-        })
-        
-        let str =``;
-        cacheData.forEach(function(item){
-           
-            str += `<div class="col-lg-4">
-            <ul class="list-unstyled m-0 h-100 d-flex flex-column shadowY-3">
-            <li class="position-relative ">
-                <div class="overflow-hidden">
-                <a  href="#">
-                    <img class="img-fluid img-hover img-transition" src="${item.imgUrl}" alt="">
-                </a>
-                </div>
-                <div style="top: -12px;" class="position-absolute py-2 px-15 fs-5 bg-secondary text-white rounded-end">${item.area}</div>
-                <div class=" translate-middle-y position-absolute  bg-primary text-white  py-tag-5 px-2 ">${item.rate}</div>
-            </li>
-            <li class="px-15 py-3 bg-white flex-grow-1 ">
-                <h2 class="fs-7 mb-15 border-2 border-bottom border-primary text-primary fw-bold linehight-4">${item.name}</h2>
-                <p class="text-info m-0">${item.description}</p>
-            </li>
-            <li class="d-flex justify-content-between bg-white px-15 py-3 align-items-center">
-                <p class="m-0 d-flex align-items-center text-primary">
-                <span id="totalGroup" style="margin-right: 6px;" class="material-icons-outlined fs-5 ">error</span>
-                ${item.group === '限時搶購' ?  '限時搶購' :  `剩下最後${item.group}組`}
-                </p>
-                <p class="text-primary m-0 fs-2  d-flex align-items-center fw-bold"><span class="fs-6 fw-normal">TWD</span>$${item.price}</p>
-            </li>
-            </ul>
-        </div>`
-        })
-      
-        totalData.textContent = `本次搜尋提供${cacheData.length}筆資料`
-        ticketArea.innerHTML = str;
-    }
-    
-    renderData();
-    
-    addTiket.addEventListener('click',function(e){
-        data.push(
-            {
-                "id":data.length,
-                "name": ticketName.value,
-                "imgUrl":ticketUrl.value,
-                "area":ticketRegion.value,
-                "description":ticketNote.value,
-                "group":ticketNum.value,
-                "price":ticketPrice.value,
-                "rate":ticketLevel.value
-            }
-        )
-        renderData();
-        ticketForm.reset();
-    })
-    
-    regionSearch.addEventListener('change',function(){
-        renderData(regionSearch.value)
-    })
+     data = res.data.data
+     renderData()
 })
+.catch(function(err){
+    console.log(error)
+})
+
+function renderData(location){
+    const cacheData = data.filter(function(item){
+        if (location === item.area){
+            return item
+        }
+
+        if(!location){
+            return item
+        }
+    })
+    
+    let str =``;
+    cacheData.forEach(function(item){
+       
+        str += `<div class="col-lg-4">
+        <ul class="list-unstyled m-0 h-100 d-flex flex-column shadowY-3">
+        <li class="position-relative ">
+            <div class="overflow-hidden">
+            <a  href="#">
+                <img class="img-fluid img-hover img-transition" src="${item.imgUrl}" alt="">
+            </a>
+            </div>
+            <div style="top: -12px;" class="position-absolute py-2 px-15 fs-5 bg-secondary text-white rounded-end">${item.area}</div>
+            <div class=" translate-middle-y position-absolute  bg-primary text-white  py-tag-5 px-2 ">${item.rate}</div>
+        </li>
+        <li class="px-15 py-3 bg-white flex-grow-1 ">
+            <h2 class="fs-7 mb-15 border-2 border-bottom border-primary text-primary fw-bold linehight-4">${item.name}</h2>
+            <p class="text-info m-0">${item.description}</p>
+        </li>
+        <li class="d-flex justify-content-between bg-white px-15 py-3 align-items-center">
+            <p class="m-0 d-flex align-items-center text-primary">
+            <span id="totalGroup" style="margin-right: 6px;" class="material-icons-outlined fs-5 ">error</span>
+            ${item.group === '限時搶購' ?  '限時搶購' :  `剩下最後${item.group}組`}
+            </p>
+            <p class="text-primary m-0 fs-2  d-flex align-items-center fw-bold"><span class="fs-6 fw-normal">TWD</span>$${item.price}</p>
+        </li>
+        </ul>
+    </div>`
+    })
+  
+    totalData.textContent = `本次搜尋提供${cacheData.length}筆資料`
+    ticketArea.innerHTML = str;
+    renderChart()
+}
+
+
+addTiket.addEventListener('click',function(e){
+    data.push(
+        {
+            "id":data.length,
+            "name": ticketName.value,
+            "imgUrl":ticketUrl.value,
+            "area":ticketRegion.value,
+            "description":ticketNote.value,
+            "group":ticketNum.value,
+            "price":ticketPrice.value,
+            "rate":ticketLevel.value
+        }
+    )
+    renderData();
+    ticketForm.reset();
+})
+
+regionSearch.addEventListener('change',function(){
+    renderData(regionSearch.value)
+})
+function renderChart(){
+    let total ={};
+    data.forEach(item =>{
+        if(total[item.area] === undefined){
+            total[item.area] = 1
+        }else{
+            total[item.area] += 1
+        }
+    })
+    const areaAry = Object.keys(total)
+    
+    let newData = []
+    areaAry.forEach(item =>{
+         let ary =[]
+         ary.push(item)
+         ary.push(total[item])
+         newData.push(ary)
+    })
+    
+    const chart = c3.generate({
+        data: {
+            columns: newData,
+            colors: {
+                '台北': '#26C0C7',
+                '台中': '#5151D3',
+                '高雄': '#E68618',
+            },
+            type : 'donut',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        donut: {
+            title: "套票地區比重",
+            width: 10,
+            label:{
+                show:false,
+            },
+        },
+        size: { 
+            width: 200,
+            height: 200
+          },
+        
+    });
+}
 
 // let data=[
 //     {
